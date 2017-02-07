@@ -291,13 +291,6 @@ jenkinsClear = (msg) ->
 
 module.exports = (robot) ->
 
-  robot.hear /([\w\.\-_ /]+) build ([0-9]+) failed/i, (res) ->
-    job = res.match[1]
-    res.send ":red_circle: Oh no?! Job **#{job}** needs looking after! :eyes:"
-  robot.hear /([\w\.\-_ /]+) build ([0-9]+) .*was fixed/i, (res) ->
-    job = res.match[1]
-    res.send ":green_heart: Yay! Making waves here. :sparkles: :tada:"
-
   robot.respond /j(?:enkins)? b (\d+)/i, (msg) ->
     jenkinsBuildById(msg)
     
@@ -315,7 +308,8 @@ module.exports = (robot) ->
     jenkinsLast(msg)
 
   robot.respond /j(?:enkins)? (?:list|ls)( (.+))?/i, (msg) ->
-    jenkinsList(msg)
+    jenkinsClear(msg)
+    #NB! clear every time for now as the list is not that big yet: jenkinsList(msg)
 
   robot.respond /j(?:enkins)? clear( (.+))?/i, (msg) ->
     jenkinsClear(msg)
