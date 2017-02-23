@@ -59,7 +59,7 @@ jenkinsBuild = (msg, buildWithEmptyParameters) ->
   for j in jobs
     jobpath += "/job/" + querystring.escape j
   #latec: added delay parameter and simplified other ways also
-  params = msg.match[3] || "?delay=0sec"
+  params = "?" + (msg.match[3] || "delay=0sec")
   command = if buildWithEmptyParameters then "/buildWithParameters" else "/build"
   path = "#{url}#{jobpath}#{command}#{params}"
   
@@ -78,7 +78,7 @@ jenkinsBuild = (msg, buildWithEmptyParameters) ->
     else if 400 == res.statusCode
       jenkinsBuild(msg, true)
     else if 404 == res.statusCode
-      msg.reply "Job *#{job}* not found, double check that it exists and is spelt correctly."
+      msg.reply "Job **#{job}** not found, double check that it exists and is spelt correctly."
     else
       msg.reply "Jenkins says: Status #{res.statusCode} #{body}"
 
@@ -291,11 +291,11 @@ jenkinsClear = (msg) ->
 
 module.exports = (robot) ->
 
-  robot.respond /j(?:enkins)? b (\d+)/i, (msg) ->
+  robot.respond /j(?:enkins)? b (\d+)(, ?(.+))/i, (msg) ->
     jenkinsBuildById(msg)
     
   #latec: added "/" to job name matching
-  robot.respond /j(?:enkins)? build ([\w\.\-_ /]+)(, (.+))?/i, (msg) ->
+  robot.respond /j(?:enkins)? build ([\w\.\-_ /]+)(, ?(.+))?/i, (msg) ->
     jenkinsBuild(msg, false)
 
   robot.respond /j(?:enkins)? desc(?:ribe)? (.*)/i, (msg) ->
