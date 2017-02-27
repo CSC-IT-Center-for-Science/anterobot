@@ -291,7 +291,7 @@ jenkinsClear = (msg) ->
 
 module.exports = (robot) ->
 
-  robot.respond /j(?:enkins)? b (\d+)(, ?(.+))/i, (msg) ->
+  robot.respond /j(?:enkins)? b (\d+)(, ?(.+))?/i, (msg) ->
     jenkinsBuildById(msg)
     
   #latec: added "/" to job name matching
