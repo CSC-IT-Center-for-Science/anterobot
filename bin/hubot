@@ -8,4 +8,7 @@ export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
 export HUBOT_JIRA_DOMAIN=jira.eduuni.fi
 export HUBOT_JIRA_PROJECTS="CSCVIPUNEN"
 
+export HUBOT_GROUP_DECORATOR="["
+export HUBOT_GROUP_PREPEND=false
+
 exec node_modules/.bin/hubot --name "anterobot" "$@"
